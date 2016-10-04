@@ -29,6 +29,40 @@ test('it renders a single date', function(assert) {
   }, 10);
 });
 
+
+test('it initializes the date correctly with required=false', function(assert) {
+  let done = assert.async();
+  assert.expect(1);
+
+  let currentDate = moment();
+  this.set('currentDate', currentDate.toDate());
+
+  this.render(hbs`{{baremetrics-calendar currentDate=currentDate onchange="changed" required=false placeholder="Pick a date"}}`);
+
+  Ember.run.later(() => {
+    assert.equal(this.$('.dr-input').text().trim(), format(currentDate), 'renders updated date');
+    done();
+  }, 10);
+});
+
+
+test('it initializes the date correctly with required=true', function(assert) {
+  let done = assert.async();
+  assert.expect(1);
+
+  let currentDate = moment();
+  this.set('currentDate', currentDate.toDate());
+
+  this.render(hbs`{{baremetrics-calendar currentDate=currentDate onchange="changed" required=true placeholder="Pick a date"}}`);
+
+  Ember.run.later(() => {
+    assert.equal(this.$('.dr-input').text().trim(), format(currentDate), 'renders updated date');
+    done();
+  }, 10);
+});
+
+
+
 test('it renders a date range', function(assert) {
   let done = assert.async();
   assert.expect(5);
